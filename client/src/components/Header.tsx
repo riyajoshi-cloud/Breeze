@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Search, Navigation, Heart, Loader2, MapPin, Sun, Moon, Leaf } from 'lucide-react';
 import { LocationInfo } from '../types/weather';
-import { searchLocationsApi } from '../services/api';
+import { searchCitiesClient } from '../services/weatherClient';
 
 interface HeaderProps {
   onSelectLocation: (loc: LocationInfo) => void;
@@ -37,7 +37,7 @@ export const Header: React.FC<HeaderProps> = ({
       if (query.trim().length >= 2) {
         setIsSearching(true);
         try {
-          const res = await searchLocationsApi(query);
+          const res = await searchCitiesClient(query);
           setResults(res);
           setIsOpen(true);
         } catch (e) {
