@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { WeatherData, LocationInfo, FavoriteItem } from '../types/weather';
 
-const API_BASE = '/api';
+const API_BASE = import.meta.env.VITE_API_URL || '/api';
 
 export const fetchWeatherData = async (
   params: { lat?: number; lon?: number; city?: string; units: 'metric' | 'imperial' }

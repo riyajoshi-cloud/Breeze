@@ -2,7 +2,7 @@
 
 Breeze is a visually immersive, organic, and nature-themed weather dashboard application. It provides real-time weather analytics, forecasts, and interactive mapping designed with a premium Blue-Green color palette, micro-animations, and full responsive support for both light and dark modes.
 
-## features
+## Features
 
 - **Real-Time Weather Metrics**: Comprehensive displays for temperature, feels-like temperatures, humidity, wind conditions, atmospheric pressure, visibility, UV index, and Air Quality Index (AQI).
 - **Hourly & Daily Forecasts**: Seamless rendering of 24-hour hourly temperatures and detailed 7-day weather predictions.
@@ -24,11 +24,37 @@ Breeze is a visually immersive, organic, and nature-themed weather dashboard app
 - **Database**: Local JSON storage (with Mongoose/MongoDB adapter support)
 - **Testing**: Vitest
 
-## Getting Started
+---
 
-### Prerequisites
-- Node.js (v18+)
-- npm or yarn
+## Deployment & hosting
+
+This monorepo project is set up to host the frontend on **Vercel** and the backend server on **Render**.
+
+### 1. Backend Server (Render)
+
+Deploy the backend directly using the Render Blueprint configuration:
+
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/riyajoshi-cloud/Breeze)
+
+1. Click the button above to go to Render.
+2. Sign in to your Render account.
+3. Keep the default configurations (the Blueprint uses `render.yaml` to configure the server environment automatically).
+4. After creation, wait for compilation, and copy your backend service URL (e.g., `https://breeze-backend-xxxx.onrender.com`).
+
+### 2. Frontend client (Vercel)
+
+Ensure your frontend communicates with the newly deployed backend:
+
+1. Log in to your **Vercel Dashboard**.
+2. Select your `Breeze` project and go to **Settings > Environment Variables**.
+3. Add a new variable:
+   - **Key**: `VITE_API_URL`
+   - **Value**: `https://<YOUR-RENDER-HOST-URL>/api` (make sure to append `/api` at the end, e.g. `https://breeze-backend.onrender.com/api`).
+4. Click **Add**, then go to the **Deployments** tab on Vercel and select **Redeploy** on your latest deployment so Vercel compiles the new environment variable value.
+
+---
+
+## Local Development Getting Started
 
 ### Installation
 1. Install root, client, and server dependencies:
