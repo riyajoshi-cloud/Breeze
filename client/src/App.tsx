@@ -14,6 +14,7 @@ import {
   fetchFavoritesApi,
   addFavoriteApi,
   deleteFavoriteApi,
+  wakeUpServer,
 } from './services/api';
 import { AlertCircle, CheckCircle, RefreshCw } from 'lucide-react';
 
@@ -35,6 +36,7 @@ export const App: React.FC = () => {
 
   // Theme support
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
+  const [isServerWarmingUp, setIsServerWarmingUp] = useState(true);
 
   // Apply theme class to document element
   useEffect(() => {
@@ -45,6 +47,11 @@ export const App: React.FC = () => {
     }
     localStorage.setItem('theme', theme);
   }, [theme]);
+
+  // Ping the backend on mount to wake up Render free-tier instance
+  useEffect(() => {
+    wakeUpServer().finally(() => setIsServerWarmingUp(false));
+  }, []);
 
   const handleToggleTheme = () => {
     setTheme((prev) => (prev === 'light' ? 'dark' : 'light'));
@@ -75,6 +82,9 @@ export const App: React.FC = () => {
       });
     },
     staleTime: 5 * 60 * 1000, // 5 minutes
+    enabled: !isServerWarmingUp, // wait for wake-up ping before fetching
+    retry: 2,
+    retryDelay: 3000,
   });
 
   // Sync selected location name when reverse geocoding resolves coordinates to city names
@@ -238,7 +248,32 @@ export const App: React.FC = () => {
       {/* Main Container */}
       <main className="max-w-7xl mx-auto px-4 lg:px-8 w-full flex-1">
 
-        {isWeatherLoading ? (
+        {isServerWarmingUp ? (
+          <div
+            className="rounded-3xl p-12 text-center max-w-lg mx-auto my-12"
+            style={{
+              background: 'rgba(255,255,255,0.7)',
+              backdropFilter: 'blur(16px)',
+              border: '1px solid rgba(34,197,94,0.3)',
+              boxShadow: '0 8px 32px rgba(5,150,105,0.1)',
+            }}
+          >
+            <div className="w-16 h-16 mx-auto mb-4 relative flex items-center justify-center">
+              <div
+                className="absolute inset-0 rounded-full animate-ping opacity-30"
+                style={{ background: 'linear-gradient(135deg, #059669, #0369a1)' }}
+              />
+              <div
+                className="w-10 h-10 rounded-full"
+                style={{ background: 'linear-gradient(135deg, #059669, #0369a1)' }}
+              />
+            </div>
+            <h3 className="text-xl font-bold mb-2">Warming up server… ☁️</h3>
+            <p className="text-sm text-nature-muted">
+              The backend is waking up from sleep. This takes about 30–60 seconds on first load.
+            </p>
+          </div>
+        ) : isWeatherLoading ? (
           <SkeletonLoader />
         ) : isWeatherError ? (
           <div

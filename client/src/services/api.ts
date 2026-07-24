@@ -5,6 +5,18 @@ import { WeatherData, LocationInfo, FavoriteItem } from '../types/weather';
 // VITE_API_URL is only needed if the proxy is not used.
 const API_BASE = import.meta.env.VITE_API_URL || '/api';
 
+/**
+ * Pings the backend health endpoint to wake up the Render free-tier instance.
+ * Call this on app load so the server is warm before the first weather request.
+ */
+export const wakeUpServer = async (): Promise<void> => {
+  try {
+    await axios.get(`${API_BASE}/health`, { timeout: 30000 });
+  } catch {
+    // Silently ignore — wake-up ping failures are non-critical
+  }
+};
+
 export const fetchWeatherData = async (
   params: { lat?: number; lon?: number; city?: string; units: 'metric' | 'imperial' }
 ): Promise<WeatherData> => {
