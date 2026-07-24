@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Header } from './components/Header';
 import { HeroWeatherCard } from './components/HeroWeatherCard';
 import { HourlyForecast } from './components/HourlyForecast';
@@ -10,17 +9,11 @@ import { SkeletonLoader } from './components/SkeletonLoader';
 import { Footer } from './components/Footer';
 import { LocationInfo, WeatherData, FavoriteItem } from './types/weather';
 import { fetchWeatherByCoords } from './services/weatherClient';
-import {
-  fetchFavoritesApi,
-  addFavoriteApi,
-  deleteFavoriteApi,
-} from './services/api';
+import { getFavorites, addFavorite, deleteFavorite } from './services/localFavorites';
 import { AlertCircle, CheckCircle, RefreshCw } from 'lucide-react';
 
 export const App: React.FC = () => {
-  const queryClient = useQueryClient();
-
-  // State
+  // ─── State ────────────────────────────────────────────────────────────────
   const [units, setUnits] = useState<'metric' | 'imperial'>('metric');
   const [selectedLocation, setSelectedLocation] = useState<LocationInfo>({
     name: 'Dehradun',
@@ -29,14 +22,23 @@ export const App: React.FC = () => {
     lat: 30.3165,
     lon: 78.0322,
   });
+
+  const [weatherData, setWeatherData] = useState<WeatherData | null>(null);
+  const [isWeatherLoading, setIsWeatherLoading] = useState(true);
+  const [weatherError, setWeatherError] = useState<string | null>(null);
+
+  const [favorites, setFavorites] = useState<FavoriteItem[]>([]);
   const [isFavoritesDrawerOpen, setIsFavoritesDrawerOpen] = useState(false);
   const [isGeolocating, setIsGeolocating] = useState(false);
   const [toast, setToast] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
-
-  // Theme support
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
 
-  // Apply theme class to document element
+  // ─── Theme ────────────────────────────────────────────────────────────────
+  useEffect(() => {
+    const saved = localStorage.getItem('theme') as 'light' | 'dark' | null;
+    if (saved) setTheme(saved);
+  }, []);
+
   useEffect(() => {
     if (theme === 'dark') {
       document.documentElement.classList.add('dark');
@@ -46,106 +48,102 @@ export const App: React.FC = () => {
     localStorage.setItem('theme', theme);
   }, [theme]);
 
-  const handleToggleTheme = () => {
-    setTheme((prev) => (prev === 'light' ? 'dark' : 'light'));
-  };
+  // ─── Favorites (localStorage — zero backend) ──────────────────────────────
+  useEffect(() => {
+    setFavorites(getFavorites());
+  }, []);
 
+  const refreshFavorites = useCallback(() => setFavorites(getFavorites()), []);
+
+  // ─── Weather fetch (Open-Meteo directly — zero backend) ───────────────────
+  const loadWeather = useCallback(
+    async (loc: LocationInfo, unitPref: 'metric' | 'imperial') => {
+      setIsWeatherLoading(true);
+      setWeatherError(null);
+      try {
+        const isCoords =
+          /^-?\d+(\.\d+)?°,\s*-?\d+(\.\d+)?°$/.test(loc.name) ||
+          loc.country === 'Coordinates';
+
+        const data = await fetchWeatherByCoords(
+          loc.lat,
+          loc.lon,
+          unitPref,
+          isCoords ? undefined : loc.name,
+          isCoords ? undefined : loc.country,
+          isCoords ? undefined : loc.state,
+        );
+
+        setWeatherData(data);
+
+        // Resolve coord-based location name after reverse geocoding
+        if (isCoords && data.location.name && data.location.name !== loc.name) {
+          setSelectedLocation({
+            name: data.location.name,
+            country: data.location.country,
+            state: data.location.state,
+            lat: loc.lat,
+            lon: loc.lon,
+          });
+        }
+      } catch (err: any) {
+        setWeatherError(err?.message || 'Weather service encountered a temporary issue.');
+      } finally {
+        setIsWeatherLoading(false);
+      }
+    },
+    [],
+  );
+
+  // Fetch weather whenever location or units change
+  useEffect(() => {
+    loadWeather(selectedLocation, units);
+  }, [selectedLocation, units, loadWeather]);
+
+  // ─── Helpers ──────────────────────────────────────────────────────────────
   const showToast = (message: string, type: 'success' | 'error' = 'success') => {
     setToast({ message, type });
     setTimeout(() => setToast(null), 3500);
   };
 
-  // Weather Query — calls Open-Meteo DIRECTLY from the browser (no backend)
-  const {
-    data: weatherData,
-    isLoading: isWeatherLoading,
-    isError: isWeatherError,
-    error: weatherErr,
-    refetch: refetchWeather,
-  } = useQuery<WeatherData>({
-    queryKey: ['weather', selectedLocation.lat, selectedLocation.lon, units],
-    queryFn: () =>
-      fetchWeatherByCoords(
-        selectedLocation.lat,
-        selectedLocation.lon,
-        units,
-        selectedLocation.country === 'Coordinates' ? undefined : selectedLocation.name,
-        selectedLocation.country === 'Coordinates' ? undefined : selectedLocation.country,
-        selectedLocation.state,
-      ),
-    staleTime: 5 * 60 * 1000,
-    retry: 1,
-  });
+  const handleSelectLocation = (loc: LocationInfo) => setSelectedLocation(loc);
 
-  // Sync selected location name when reverse geocoding resolves coordinates to city names
-  useEffect(() => {
-    if (weatherData && weatherData.location) {
-      const { name, country, state, lat, lon } = weatherData.location;
-      const isCoordName = /^-?\d+(\.\d+)?°,\s*-?\d+(\.\d+)?°$/.test(selectedLocation.name) || 
-                          selectedLocation.country === 'Coordinates';
-      if (isCoordName && name && name !== selectedLocation.name) {
-        setSelectedLocation({
-          name,
-          country,
-          state,
-          lat,
-          lon,
-        });
-      }
-    }
-  }, [weatherData, selectedLocation.name, selectedLocation.country]);
+  const handleToggleTheme = () =>
+    setTheme(prev => (prev === 'light' ? 'dark' : 'light'));
 
-  // Favorites Query
-  const { data: favorites = [] } = useQuery<FavoriteItem[]>({
-    queryKey: ['favorites'],
-    queryFn: fetchFavoritesApi,
-  });
+  const handleToggleUnits = () =>
+    setUnits(prev => (prev === 'metric' ? 'imperial' : 'metric'));
 
-  // Favorite Mutations
-  const addFavoriteMutation = useMutation({
-    mutationFn: addFavoriteApi,
-    onSuccess: (newFav) => {
-      queryClient.invalidateQueries({ queryKey: ['favorites'] });
-      showToast(`Saved ${newFav.name} to favorites!`);
-    },
-    onError: (err: any) => {
-      showToast(err.response?.data?.error || 'Failed to save location', 'error');
-    },
-  });
-
-  const deleteFavoriteMutation = useMutation({
-    mutationFn: deleteFavoriteApi,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['favorites'] });
-      showToast('Location removed from favorites');
-    },
-    onError: () => {
-      showToast('Failed to remove location', 'error');
-    },
-  });
-
-  // Check if current location is in favorites
   const isCurrentFavorite = favorites.some(
-    (f) =>
-      Math.abs(f.lat - selectedLocation.lat) < 0.05 &&
-      Math.abs(f.lon - selectedLocation.lon) < 0.05
+    f => Math.abs(f.lat - selectedLocation.lat) < 0.05 && Math.abs(f.lon - selectedLocation.lon) < 0.05,
   );
 
   const currentFavoriteItem = favorites.find(
-    (f) =>
-      Math.abs(f.lat - selectedLocation.lat) < 0.05 &&
-      Math.abs(f.lon - selectedLocation.lon) < 0.05
+    f => Math.abs(f.lat - selectedLocation.lat) < 0.05 && Math.abs(f.lon - selectedLocation.lon) < 0.05,
   );
 
   const handleToggleFavorite = () => {
-    if (isCurrentFavorite && currentFavoriteItem) {
-      deleteFavoriteMutation.mutate(currentFavoriteItem._id);
-    } else {
-      addFavoriteMutation.mutate(selectedLocation);
+    try {
+      if (isCurrentFavorite && currentFavoriteItem) {
+        deleteFavorite(currentFavoriteItem._id);
+        refreshFavorites();
+        showToast('Location removed from favorites');
+      } else {
+        const newFav = addFavorite(selectedLocation);
+        refreshFavorites();
+        showToast(`Saved ${newFav.name} to favorites!`);
+      }
+    } catch (err: any) {
+      showToast(err?.message || 'Failed to update favorites', 'error');
     }
   };
 
-  // Browser Geolocation
+  const handleDeleteFavorite = (id: string) => {
+    deleteFavorite(id);
+    refreshFavorites();
+    showToast('Location removed from favorites');
+  };
+
   const handleUseCurrentLocation = () => {
     if (!navigator.geolocation) {
       showToast('Geolocation is not supported by your browser', 'error');
@@ -153,30 +151,29 @@ export const App: React.FC = () => {
     }
     setIsGeolocating(true);
     navigator.geolocation.getCurrentPosition(
-      (position) => {
+      position => {
         setSelectedLocation({
           name: 'Current Location',
-          country: '',
+          country: 'Coordinates',
           lat: position.coords.latitude,
           lon: position.coords.longitude,
         });
         setIsGeolocating(false);
         showToast('Updated to your current location!');
       },
-      (err) => {
+      err => {
         console.error(err);
         setIsGeolocating(false);
         showToast('Unable to retrieve location. Using default.', 'error');
       },
-      { timeout: 10000 }
+      { timeout: 10000 },
     );
   };
 
-  // Handle map click selection
   const handleMapClick = (lat: number, lon: number) => {
     setSelectedLocation({
       name: `${lat.toFixed(2)}°, ${lon.toFixed(2)}°`,
-      country: '',
+      country: 'Coordinates',
       lat,
       lon,
     });
@@ -184,6 +181,7 @@ export const App: React.FC = () => {
 
   const unitSymbol = units === 'imperial' ? '°F' : '°C';
 
+  // ─── Render ───────────────────────────────────────────────────────────────
   return (
     <div className="min-h-screen flex flex-col justify-between pb-12 text-nature-primary select-text">
       {/* Shiny blue viewport corner glowing animation */}
@@ -191,9 +189,9 @@ export const App: React.FC = () => {
 
       {/* Top Header */}
       <Header
-        onSelectLocation={(loc) => setSelectedLocation(loc)}
+        onSelectLocation={handleSelectLocation}
         units={units}
-        onToggleUnits={() => setUnits(units === 'metric' ? 'imperial' : 'metric')}
+        onToggleUnits={handleToggleUnits}
         onUseCurrentLocation={handleUseCurrentLocation}
         favoritesCount={favorites.length}
         onToggleFavoritesDrawer={() => setIsFavoritesDrawerOpen(true)}
@@ -240,7 +238,7 @@ export const App: React.FC = () => {
 
         {isWeatherLoading ? (
           <SkeletonLoader />
-        ) : isWeatherError ? (
+        ) : weatherError ? (
           <div
             className="rounded-3xl p-12 text-center max-w-lg mx-auto my-12"
             style={{
@@ -252,11 +250,9 @@ export const App: React.FC = () => {
           >
             <AlertCircle className="w-16 h-16 mx-auto mb-4 animate-bounce" style={{ color: '#f87171' }} />
             <h3 className="text-2xl font-bold mb-2">Unable to Load Weather 🌧️</h3>
-            <p className="text-sm mb-6 text-nature-muted">
-              {(weatherErr as any)?.message || 'Weather service encountered a temporary issue.'}
-            </p>
+            <p className="text-sm mb-6 text-nature-muted">{weatherError}</p>
             <button
-              onClick={() => refetchWeather()}
+              onClick={() => loadWeather(selectedLocation, units)}
               className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-bold transition-all"
               style={{
                 background: 'linear-gradient(135deg, #059669, #0369a1)',
@@ -310,8 +306,8 @@ export const App: React.FC = () => {
         isOpen={isFavoritesDrawerOpen}
         onClose={() => setIsFavoritesDrawerOpen(false)}
         favorites={favorites}
-        onSelectFavorite={(loc) => setSelectedLocation(loc)}
-        onDeleteFavorite={(id) => deleteFavoriteMutation.mutate(id)}
+        onSelectFavorite={loc => { setSelectedLocation(loc); setIsFavoritesDrawerOpen(false); }}
+        onDeleteFavorite={handleDeleteFavorite}
       />
 
       {/* Footer */}
