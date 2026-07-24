@@ -1,0 +1,493 @@
+{
+  "favorites": [
+    {
+      "_id": "fav-1",
+      "name": "London",
+      "country": "United Kingdom",
+      "lat": 51.5074,
+      "lon": -0.1278,
+      "createdAt": "2026-07-24T18:18:46.080Z"
+    },
+    {
+      "_id": "fav-2",
+      "name": "Dehradun",
+      "country": "India",
+      "state": "Uttarakhand",
+      "lat": 30.3165,
+      "lon": 78.0322,
+      "createdAt": "2026-07-24T18:55:25.615Z"
+    },
+    {
+      "_id": "fav-3",
+      "name": "New York",
+      "country": "United States",
+      "lat": 40.7128,
+      "lon": -74.006,
+      "createdAt": "2026-07-24T18:18:46.098Z"
+    }
+  ],
+  "weatherHistory": [
+    {
+      "_id": "log-1784925086508-e5qk",
+      "name": "Гумсу",
+      "country": "Тоҷикистон",
+      "lat": 38.155293287921324,
+      "lon": 69.1971877019906,
+      "temp": 27,
+      "humidity": 34,
+      "conditions": "Clear Sky",
+      "createdAt": "2026-07-24T20:31:26.508Z"
+    },
+    {
+      "_id": "log-1784924774827-5mts",
+      "name": "Dehradun",
+      "country": "",
+      "lat": 30.3165,
+      "lon": 78.0322,
+      "temp": 24,
+      "humidity": 97,
+      "conditions": "Overcast",
+      "createdAt": "2026-07-24T20:26:14.827Z"
+    },
+    {
+      "_id": "log-1784924678695-8nn5",
+      "name": "Dehradun",
+      "country": "",
+      "lat": 30.3165,
+      "lon": 78.0322,
+      "temp": 24,
+      "humidity": 97,
+      "conditions": "Overcast",
+      "createdAt": "2026-07-24T20:24:38.695Z"
+    },
+    {
+      "_id": "log-1784924540705-alwj",
+      "name": "Dehradun",
+      "country": "",
+      "lat": 30.3165,
+      "lon": 78.0322,
+      "temp": 24,
+      "humidity": 97,
+      "conditions": "Overcast",
+      "createdAt": "2026-07-24T20:22:20.705Z"
+    },
+    {
+      "_id": "log-1784924368616-pr4q",
+      "name": "Dehradun",
+      "country": "",
+      "lat": 30.3165,
+      "lon": 78.0322,
+      "temp": 24,
+      "humidity": 97,
+      "conditions": "Overcast",
+      "createdAt": "2026-07-24T20:19:28.616Z"
+    },
+    {
+      "_id": "log-1784924103078-ljab",
+      "name": "达雄乡",
+      "country": "中国",
+      "lat": 31.439911986208642,
+      "lon": 84.43446586017161,
+      "temp": 6,
+      "humidity": 91,
+      "conditions": "Drizzle",
+      "createdAt": "2026-07-24T20:15:03.078Z"
+    },
+    {
+      "_id": "log-1784924051994-5u7b",
+      "name": "Dehradun",
+      "country": "",
+      "lat": 30.3165,
+      "lon": 78.0322,
+      "temp": 24,
+      "humidity": 97,
+      "conditions": "Overcast",
+      "createdAt": "2026-07-24T20:14:11.994Z"
+    },
+    {
+      "_id": "log-1784923809668-x0p8",
+      "name": "Dehradun",
+      "country": "",
+      "lat": 30.3165,
+      "lon": 78.0322,
+      "temp": 24,
+      "humidity": 97,
+      "conditions": "Overcast",
+      "createdAt": "2026-07-24T20:10:09.668Z"
+    },
+    {
+      "_id": "log-1784923659024-dxm4",
+      "name": "Dehradun",
+      "country": "",
+      "lat": 30.3165,
+      "lon": 78.0322,
+      "temp": 24,
+      "humidity": 97,
+      "conditions": "Overcast",
+      "createdAt": "2026-07-24T20:07:39.024Z"
+    },
+    {
+      "_id": "log-1784923636877-7kvz",
+      "name": "Haridwār",
+      "country": "India",
+      "lat": 29.906853181076148,
+      "lon": 78.11447086579558,
+      "temp": 27,
+      "humidity": 84,
+      "conditions": "Overcast",
+      "createdAt": "2026-07-24T20:07:16.877Z"
+    },
+    {
+      "_id": "log-1784923536903-6qhf",
+      "name": "Dehradun",
+      "country": "",
+      "lat": 30.3165,
+      "lon": 78.0322,
+      "temp": 24,
+      "humidity": 97,
+      "conditions": "Overcast",
+      "createdAt": "2026-07-24T20:05:36.903Z"
+    },
+    {
+      "_id": "log-1784923489367-fp0u",
+      "name": "Current Location",
+      "country": "India",
+      "lat": 30.219440577060887,
+      "lon": 78.45434724166721,
+      "temp": 17,
+      "humidity": 97,
+      "conditions": "Drizzle",
+      "createdAt": "2026-07-24T20:04:49.367Z"
+    },
+    {
+      "_id": "log-1784923199722-y6wz",
+      "name": "Dehradun",
+      "country": "",
+      "lat": 30.3165,
+      "lon": 78.0322,
+      "temp": 24,
+      "humidity": 97,
+      "conditions": "Overcast",
+      "createdAt": "2026-07-24T19:59:59.722Z"
+    },
+    {
+      "_id": "log-1784923187616-r2qy",
+      "name": "Dehradun",
+      "country": "",
+      "lat": 30.3165,
+      "lon": 78.0322,
+      "temp": 24,
+      "humidity": 97,
+      "conditions": "Overcast",
+      "createdAt": "2026-07-24T19:59:47.616Z"
+    },
+    {
+      "_id": "log-1784923187539-dau1",
+      "name": "Central Hope Town",
+      "country": "",
+      "lat": 30.276221875828522,
+      "lon": 77.88654715765496,
+      "temp": 24,
+      "humidity": 97,
+      "conditions": "Overcast",
+      "createdAt": "2026-07-24T19:59:47.539Z"
+    },
+    {
+      "_id": "log-1784922714363-yh5g",
+      "name": "Dehradun",
+      "country": "",
+      "lat": 30.3165,
+      "lon": 78.0322,
+      "temp": 24,
+      "humidity": 97,
+      "conditions": "Overcast",
+      "createdAt": "2026-07-24T19:51:54.363Z"
+    },
+    {
+      "_id": "log-1784922576980-i5w1",
+      "name": "Central Hope Town",
+      "country": "India",
+      "lat": 30.276221875828522,
+      "lon": 77.88654715765496,
+      "temp": 24,
+      "humidity": 97,
+      "conditions": "Overcast",
+      "createdAt": "2026-07-24T19:49:36.980Z"
+    },
+    {
+      "_id": "log-1784922249373-rwsi",
+      "name": "Dehradun",
+      "country": "",
+      "lat": 30.3165,
+      "lon": 78.0322,
+      "temp": 24,
+      "humidity": 97,
+      "conditions": "Overcast",
+      "createdAt": "2026-07-24T19:44:09.376Z"
+    },
+    {
+      "_id": "log-1784922224531-sexu",
+      "name": "Dehradun",
+      "country": "",
+      "lat": 30.3165,
+      "lon": 78.0322,
+      "temp": 24,
+      "humidity": 97,
+      "conditions": "Overcast",
+      "createdAt": "2026-07-24T19:43:44.533Z"
+    },
+    {
+      "_id": "log-1784922142827-q3e4",
+      "name": "Dehradun",
+      "country": "",
+      "lat": 30.3165,
+      "lon": 78.0322,
+      "temp": 24,
+      "humidity": 97,
+      "conditions": "Overcast",
+      "createdAt": "2026-07-24T19:42:22.827Z"
+    },
+    {
+      "_id": "log-1784921871330-e72g",
+      "name": "City of Westminster",
+      "country": "United Kingdom",
+      "lat": 51.49731970146227,
+      "lon": -0.1403602698675366,
+      "temp": 27,
+      "humidity": 42,
+      "conditions": "Overcast",
+      "createdAt": "2026-07-24T19:37:51.330Z"
+    },
+    {
+      "_id": "log-1784921228137-k6lf",
+      "name": "London",
+      "country": "",
+      "lat": 51.5074,
+      "lon": -0.1278,
+      "temp": 28,
+      "humidity": 35,
+      "conditions": "Overcast",
+      "createdAt": "2026-07-24T19:27:08.142Z"
+    },
+    {
+      "_id": "log-1784921121436-ht07",
+      "name": "London",
+      "country": "",
+      "lat": 51.5074,
+      "lon": -0.1278,
+      "temp": 28,
+      "humidity": 35,
+      "conditions": "Overcast",
+      "createdAt": "2026-07-24T19:25:21.436Z"
+    },
+    {
+      "_id": "log-1784921120176-akx0",
+      "name": "London",
+      "country": "",
+      "lat": 51.5074,
+      "lon": -0.1278,
+      "temp": 28,
+      "humidity": 35,
+      "conditions": "Overcast",
+      "createdAt": "2026-07-24T19:25:20.182Z"
+    },
+    {
+      "_id": "log-1784920798657-gmu8",
+      "name": "London",
+      "country": "",
+      "lat": 51.5074,
+      "lon": -0.1278,
+      "temp": 28,
+      "humidity": 35,
+      "conditions": "Overcast",
+      "createdAt": "2026-07-24T19:19:58.657Z"
+    },
+    {
+      "_id": "log-1784920677493-jdtn",
+      "name": "Reims",
+      "country": "France",
+      "lat": 49.241790351367904,
+      "lon": 4.017471231990966,
+      "temp": 25,
+      "humidity": 42,
+      "conditions": "Overcast",
+      "createdAt": "2026-07-24T19:17:57.498Z"
+    },
+    {
+      "_id": "log-1784920194430-s2if",
+      "name": "Reims",
+      "country": "France",
+      "lat": 49.241790351367904,
+      "lon": 4.017471231990966,
+      "temp": 25,
+      "humidity": 42,
+      "conditions": "Overcast",
+      "createdAt": "2026-07-24T19:09:54.434Z"
+    },
+    {
+      "_id": "log-1784920049092-zuz4",
+      "name": "Chailly-en-Brie",
+      "country": "France",
+      "lat": 48.79590018887626,
+      "lon": 3.1432823904355627,
+      "temp": 24,
+      "humidity": 44,
+      "conditions": "Clear Sky",
+      "createdAt": "2026-07-24T19:07:29.092Z"
+    },
+    {
+      "_id": "log-1784919928347-e1je",
+      "name": "London",
+      "country": "",
+      "lat": 51.5074,
+      "lon": -0.1278,
+      "temp": 28,
+      "humidity": 35,
+      "conditions": "Overcast",
+      "createdAt": "2026-07-24T19:05:28.348Z"
+    },
+    {
+      "_id": "log-1784919652350-licr",
+      "name": "26.74°, 73.99°",
+      "country": "",
+      "lat": 26.735835998951323,
+      "lon": 73.98726575695734,
+      "temp": 28,
+      "humidity": 82,
+      "conditions": "Clear Sky",
+      "createdAt": "2026-07-24T19:00:52.350Z"
+    },
+    {
+      "_id": "log-1784919631677-svko",
+      "name": "51.53°, -3.62°",
+      "country": "",
+      "lat": 51.534257072378445,
+      "lon": -3.61967210927952,
+      "temp": 20,
+      "humidity": 52,
+      "conditions": "Mainly Clear",
+      "createdAt": "2026-07-24T19:00:31.677Z"
+    },
+    {
+      "_id": "log-1784919623824-4f2e",
+      "name": "51.70°, -0.75°",
+      "country": "",
+      "lat": 51.69855787240649,
+      "lon": -0.7466347046131585,
+      "temp": 24,
+      "humidity": 45,
+      "conditions": "Partly Cloudy",
+      "createdAt": "2026-07-24T19:00:23.824Z"
+    },
+    {
+      "_id": "log-1784919561429-qga8",
+      "name": "London",
+      "country": "",
+      "lat": 51.5074,
+      "lon": -0.1278,
+      "temp": 28,
+      "humidity": 35,
+      "conditions": "Overcast",
+      "createdAt": "2026-07-24T18:59:21.429Z"
+    },
+    {
+      "_id": "log-1784919548628-n06r",
+      "name": "London",
+      "country": "",
+      "lat": 51.5074,
+      "lon": -0.1278,
+      "temp": 28,
+      "humidity": 35,
+      "conditions": "Overcast",
+      "createdAt": "2026-07-24T18:59:08.628Z"
+    },
+    {
+      "_id": "log-1784919307995-n5eq",
+      "name": "Dehradun",
+      "country": "",
+      "lat": 30.32443,
+      "lon": 78.03392,
+      "temp": 24,
+      "humidity": 97,
+      "conditions": "Overcast",
+      "createdAt": "2026-07-24T18:55:07.995Z"
+    },
+    {
+      "_id": "log-1784919287770-nxcv",
+      "name": "71.68°, -70.28°",
+      "country": "",
+      "lat": 71.6771875404387,
+      "lon": -70.27638504284825,
+      "temp": 5,
+      "humidity": 95,
+      "conditions": "Partly Cloudy",
+      "createdAt": "2026-07-24T18:54:47.771Z"
+    },
+    {
+      "_id": "log-1784918877531-t5y9",
+      "name": "71.67°, -70.24°",
+      "country": "",
+      "lat": 71.67304131660985,
+      "lon": -70.23751090896313,
+      "temp": 5,
+      "humidity": 95,
+      "conditions": "Partly Cloudy",
+      "createdAt": "2026-07-24T18:47:57.531Z"
+    },
+    {
+      "_id": "log-1784918714296-mzce",
+      "name": "London",
+      "country": "",
+      "lat": 51.5074,
+      "lon": -0.1278,
+      "temp": 28,
+      "humidity": 35,
+      "conditions": "Overcast",
+      "createdAt": "2026-07-24T18:45:14.296Z"
+    },
+    {
+      "_id": "log-1784918697585-1wmr",
+      "name": "London",
+      "country": "",
+      "lat": 51.5074,
+      "lon": -0.1278,
+      "temp": 28,
+      "humidity": 35,
+      "conditions": "Overcast",
+      "createdAt": "2026-07-24T18:44:57.585Z"
+    },
+    {
+      "_id": "log-1784918423758-1ygu",
+      "name": "London",
+      "country": "",
+      "lat": 51.5074,
+      "lon": -0.1278,
+      "temp": 28,
+      "humidity": 35,
+      "conditions": "Overcast",
+      "createdAt": "2026-07-24T18:40:23.766Z"
+    },
+    {
+      "_id": "log-1784918253123-8vnp",
+      "name": "London",
+      "country": "",
+      "lat": 51.5074,
+      "lon": -0.1278,
+      "temp": 28,
+      "humidity": 35,
+      "conditions": "Overcast",
+      "createdAt": "2026-07-24T18:37:33.130Z"
+    },
+    {
+      "_id": "log-1784917995966-533i",
+      "name": "London",
+      "country": "",
+      "lat": 51.5074,
+      "lon": -0.1278,
+      "temp": 28,
+      "humidity": 35,
+      "conditions": "Overcast",
+      "createdAt": "2026-07-24T18:33:15.967Z"
+    }
+  ]
+}

@@ -1,0 +1,254 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg-gradient: linear-gradient(160deg, #e0f4ff 0%, #b6e4d3 30%, #c8f0e5 55%, #ddf5ff 80%, #b8ebd6 100%);
+  --glass-bg: rgba(255, 255, 255, 0.38);
+  --glass-border: rgba(255, 255, 255, 0.6);
+  --glass-shadow: 0 8px 32px 0 rgba(72, 187, 120, 0.12), 0 2px 8px rgba(56, 178, 172, 0.08);
+  --glass-input-bg: rgba(255, 255, 255, 0.55);
+  --glass-input-border: rgba(134, 239, 172, 0.4);
+  --glass-input-placeholder: rgba(15, 80, 50, 0.4);
+  --text-primary: #041a0e;
+  --text-secondary: #082d1b;
+  --text-muted: #1e442c;
+  --text-sky: #0369a1;
+  --header-bg: rgba(255, 255, 255, 0.45);
+  --header-border: rgba(134, 239, 172, 0.4);
+  --header-shadow: 0 4px 24px rgba(72, 187, 120, 0.1);
+  --toast-success-bg: rgba(209, 250, 229, 0.95);
+  --toast-success-border: rgba(52, 211, 153, 0.5);
+  --toast-success-text: #065f46;
+  --toast-error-bg: rgba(255, 241, 242, 0.95);
+  --toast-error-border: rgba(252, 165, 165, 0.5);
+  --toast-error-text: #7f1d1d;
+  --sidebar-gradient: linear-gradient(160deg, rgba(255, 255, 255, 0.85) 0%, rgba(209, 250, 229, 0.8) 100%);
+  --sidebar-border: rgba(134, 239, 172, 0.5);
+  --sidebar-shadow: -8px 0 40px rgba(72, 187, 120, 0.15);
+  --radar-btn-inactive: text-slate-400 hover:text-slate-200;
+}
+
+.dark {
+  --bg-gradient: linear-gradient(160deg, #071712 0%, #031017 30%, #07181c 55%, #020b0d 80%, #010604 100%);
+  --glass-bg: rgba(15, 23, 42, 0.65);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4), 0 2px 8px rgba(16, 185, 129, 0.05);
+  --glass-input-bg: rgba(15, 23, 42, 0.8);
+  --glass-input-border: rgba(16, 185, 129, 0.25);
+  --glass-input-placeholder: rgba(148, 163, 184, 0.5);
+  --text-primary: #ffffff;
+  --text-secondary: #d1fae5;
+  --text-muted: #cbd5e1;
+  --text-sky: #38bdf8;
+  --header-bg: rgba(15, 23, 42, 0.7);
+  --header-border: rgba(16, 185, 129, 0.2);
+  --header-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+  --toast-success-bg: rgba(6, 78, 59, 0.95);
+  --toast-success-border: rgba(16, 185, 129, 0.4);
+  --toast-success-text: #ecfdf5;
+  --toast-error-bg: rgba(127, 29, 29, 0.95);
+  --toast-error-border: rgba(239, 68, 68, 0.4);
+  --toast-error-text: #fef2f2;
+  --sidebar-gradient: linear-gradient(160deg, rgba(15, 23, 42, 0.95) 0%, rgba(6, 78, 59, 0.9) 100%);
+  --sidebar-border: rgba(16, 185, 129, 0.25);
+  --sidebar-shadow: -8px 0 40px rgba(0, 0, 0, 0.6);
+  --radar-btn-inactive: text-slate-400 hover:text-slate-200;
+}
+
+@layer base {
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg-gradient);
+    background-attachment: fixed;
+    min-height: 100vh;
+    color: var(--text-primary);
+    transition: background 0.3s ease, color 0.3s ease;
+  }
+
+  h1, h2, h3, .font-heading {
+    font-family: 'Outfit', sans-serif;
+  }
+}
+
+.logo-cursive {
+  font-family: 'Playball', 'Dancing Script', cursive;
+  font-style: normal;
+}
+
+/* Nature-Glassmorphism Design Tokens */
+.glass-panel {
+  background: var(--glass-bg);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+  transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.glass-panel-hover {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-panel-hover:hover {
+  background: var(--glass-bg);
+  filter: brightness(1.08);
+  border-color: rgba(52, 211, 153, 0.5);
+  transform: translateY(-2px);
+  box-shadow: 0 16px 48px 0 rgba(72, 187, 120, 0.18), 0 4px 12px rgba(56, 178, 172, 0.12);
+}
+
+.glass-input {
+  background: var(--glass-input-bg);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-input-border);
+  color: var(--text-primary);
+  transition: all 0.3s ease;
+}
+
+.glass-input:focus {
+  border-color: rgba(52, 211, 153, 0.7);
+  box-shadow: 0 0 18px rgba(52, 211, 153, 0.3);
+  outline: none;
+}
+
+.glass-input::placeholder {
+  color: var(--glass-input-placeholder);
+}
+
+/* Nature text colors */
+.text-nature-primary { color: var(--text-primary); }
+.text-nature-secondary { color: var(--text-secondary); }
+.text-nature-accent { color: #059669; }
+.text-nature-sky { color: var(--text-sky); }
+.text-nature-muted { color: var(--text-muted); }
+
+/* Floating tree decorations */
+@keyframes sway {
+  0%, 100% { transform: rotate(-2deg) translateY(0px); }
+  50% { transform: rotate(2deg) translateY(-4px); }
+}
+
+@keyframes sway-slow {
+  0%, 100% { transform: rotate(-1deg) translateY(0px); }
+  50% { transform: rotate(1.5deg) translateY(-3px); }
+}
+
+@keyframes leaf-fall {
+  0% { transform: translateY(-10px) rotate(0deg); opacity: 0; }
+  20% { opacity: 0.8; }
+  100% { transform: translateY(100px) rotate(360deg); opacity: 0; }
+}
+
+.tree-sway { animation: sway 4s ease-in-out infinite; }
+.tree-sway-slow { animation: sway-slow 6s ease-in-out infinite; }
+.leaf-fall { animation: leaf-fall 5s ease-in infinite; }
+
+/* Custom Scrollbar - Nature Green */
+::-webkit-scrollbar {
+  height: 6px;
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(209, 250, 229, 0.4);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(52, 211, 153, 0.5);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(16, 185, 129, 0.7);
+}
+
+/* Leaflet Map Nature Styling */
+.leaflet-container {
+  background: #b8e4c9 !important;
+  font-family: inherit;
+  border-radius: 1rem;
+}
+
+/* Green theme dye filters for Leaflet map tiles */
+.leaflet-tile {
+  filter: hue-rotate(60deg) saturate(1.15) brightness(0.92) contrast(1.05) sepia(0.08) !important;
+}
+
+.dark .leaflet-tile {
+  filter: sepia(1) hue-rotate(85deg) saturate(2.4) brightness(0.95) contrast(1.15) !important;
+}
+
+.dark .leaflet-container {
+  background: #020704 !important;
+}
+
+.leaflet-bar a {
+  background-color: rgba(255, 255, 255, 0.85) !important;
+  color: #065f46 !important;
+  border-color: rgba(134, 239, 172, 0.5) !important;
+}
+
+.leaflet-bar a:hover {
+  background-color: rgba(209, 250, 229, 0.95) !important;
+}
+
+/* Nature gradient backgrounds for cards */
+.nature-card-sky {
+  background: linear-gradient(135deg, rgba(186, 230, 253, 0.5) 0%, rgba(167, 243, 208, 0.4) 100%);
+}
+
+.nature-card-forest {
+  background: linear-gradient(135deg, rgba(167, 243, 208, 0.5) 0%, rgba(209, 250, 229, 0.4) 100%);
+}
+
+.nature-card-sun {
+  background: linear-gradient(135deg, rgba(254, 240, 138, 0.4) 0%, rgba(167, 243, 208, 0.4) 100%);
+}
+
+/* Pulse animation for weather icons */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-6px); }
+}
+
+.animate-float { animation: float 4s ease-in-out infinite; }
+.animate-pulse-slow { animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+
+/* Shiny vignette around the screen corners on load (responsive themes) */
+@keyframes corner-glow-light {
+  0% {
+    box-shadow: inset 0 0 65px rgba(16, 185, 129, 0.28), inset 0 0 35px rgba(245, 158, 11, 0.15);
+  }
+  50% {
+    box-shadow: inset 0 0 45px rgba(16, 185, 129, 0.18), inset 0 0 20px rgba(245, 158, 11, 0.08);
+  }
+  100% {
+    box-shadow: inset 0 0 65px rgba(16, 185, 129, 0.28), inset 0 0 35px rgba(245, 158, 11, 0.15);
+  }
+}
+
+@keyframes corner-glow-dark {
+  0% {
+    box-shadow: inset 0 0 75px rgba(14, 165, 233, 0.65), inset 0 0 30px rgba(56, 189, 248, 0.35);
+  }
+  50% {
+    box-shadow: inset 0 0 50px rgba(14, 165, 233, 0.45), inset 0 0 20px rgba(56, 189, 248, 0.2);
+  }
+  100% {
+    box-shadow: inset 0 0 75px rgba(14, 165, 233, 0.65), inset 0 0 30px rgba(56, 189, 248, 0.35);
+  }
+}
+
+.screen-corner-glow {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  animation: corner-glow-light 4s ease-in-out infinite;
+}
+
+.dark .screen-corner-glow {
+  animation: corner-glow-dark 4s ease-in-out infinite;
+}
