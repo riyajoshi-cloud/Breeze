@@ -1,6 +1,8 @@
 import axios from 'axios';
 import { WeatherData, LocationInfo, FavoriteItem } from '../types/weather';
 
+// In production (Vercel) the /api requests are proxied to Render via vercel.json rewrites.
+// VITE_API_URL is only needed if the proxy is not used.
 const API_BASE = import.meta.env.VITE_API_URL || '/api';
 
 export const fetchWeatherData = async (
