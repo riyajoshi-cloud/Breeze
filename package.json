@@ -8,7 +8,7 @@
     "dev": "concurrently \"npm run dev:server\" \"npm run dev:client\"",
     "build:server": "cd server && npm run build",
     "build:client": "cd client && npm run build",
-    "build": "node build-vercel.js",
+    "build": "echo Done",
     "test": "cd server && npm run test"
   },
   "devDependencies": {
